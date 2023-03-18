@@ -393,7 +393,7 @@ class ControlNetModel(ModelMixin, ConfigMixin):
         timestep_cond: Optional[torch.Tensor] = None,
         attention_mask: Optional[torch.Tensor] = None,
         cross_attention_kwargs: Optional[Dict[str, Any]] = None,
-        return_dict: bool = True,
+        return_dict: bool = False,
     ) -> Union[ControlNetOutput, Tuple]:
         # check channel order
         channel_order = self.config.controlnet_conditioning_channel_order
@@ -493,7 +493,19 @@ class ControlNetModel(ModelMixin, ConfigMixin):
         mid_block_res_sample = self.controlnet_mid_block(sample)
 
         if not return_dict:
-            return (down_block_res_samples, mid_block_res_sample)
+            return (down_block_res_samples[0],
+                    down_block_res_samples[1],
+                    down_block_res_samples[2],
+                    down_block_res_samples[3],
+                    down_block_res_samples[4],
+                    down_block_res_samples[5],
+                    down_block_res_samples[6],
+                    down_block_res_samples[7],
+                    down_block_res_samples[8],
+                    down_block_res_samples[9],
+                    down_block_res_samples[10],
+                    down_block_res_samples[11],
+                    mid_block_res_sample)
 
         return ControlNetOutput(
             down_block_res_samples=down_block_res_samples, mid_block_res_sample=mid_block_res_sample

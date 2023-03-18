@@ -488,12 +488,23 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin)
         sample: torch.FloatTensor,
         timestep: Union[torch.Tensor, float, int],
         encoder_hidden_states: torch.Tensor,
+        dbar_0=None, 
+        dbar_1=None,
+        dbar_2=None,
+        dbar_3=None,
+        dbar_4=None,
+        dbar_5=None,
+        dbar_6=None,
+        dbar_7=None,
+        dbar_8=None,
+        dbar_9=None,
+        dbar_10=None,
+        dbar_11=None,
+        mid_block_additional_residual: Optional[torch.Tensor] = None,
         class_labels: Optional[torch.Tensor] = None,
         timestep_cond: Optional[torch.Tensor] = None,
         attention_mask: Optional[torch.Tensor] = None,
         cross_attention_kwargs: Optional[Dict[str, Any]] = None,
-        down_block_additional_residuals: Optional[Tuple[torch.Tensor]] = None,
-        mid_block_additional_residual: Optional[torch.Tensor] = None,
         return_dict: bool = True,
     ) -> Union[UNet2DConditionOutput, Tuple]:
         r"""
@@ -591,6 +602,9 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin)
 
             down_block_res_samples += res_samples
 
+        down_block_additional_residuals = (dbar_0, dbar_1, dbar_2, dbar_3, dbar_4, 
+                                           dbar_5, dbar_6, dbar_7, dbar_8, dbar_9,
+                                           dbar_10,dbar_11,)
         if down_block_additional_residuals is not None:
             new_down_block_res_samples = ()
 
